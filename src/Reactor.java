@@ -16,11 +16,9 @@ public class Reactor {
     }
 
     public void startServer() {
-        Dispatcher dispatcher = new Dispatcher();
-
-        while (true) {
-            dispatcher.dispatch(serverSocket, handleMap);
-        }
+//        IDispatcher dispatcher = new ThreadPerDispatcher();
+        IDispatcher dispatcher = new ThreadPoolDispatcher();
+        dispatcher.dispatch(serverSocket, handleMap);
     }
 
     public void registerHandler(EventHandler handler) {
