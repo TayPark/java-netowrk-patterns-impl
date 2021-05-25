@@ -8,23 +8,13 @@ public class ServerInitializer {
     public static void main(String args[]) {
         final int PORT = 5000;
 
-        try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
-//            Socket connection;
+        Reactor reactor = new Reactor(PORT);
 
-            while (true) {
-//                connection = serverSocket.accept();
-//                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
-//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                Dispatcher dispatcher = new Dispatcher();
-                dispatcher.dispatch(serverSocket);
+        reactor.registerHandler(new SayHelloEventHandler());
+        reactor.registerHandler(new UpdateProfileEventHandler());
 
-//                System.out.println("READ: " + line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//      만약 다른 프로토콜(핸들러)가 필요할 경우 switch-case를 쓰지 않고 여기서 추가한다.
 
-
+        reactor.startServer();
     }
 }
