@@ -10,15 +10,16 @@ public class ServerInitializer {
 
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
-            Socket connection;
+//            Socket connection;
 
             while (true) {
-                connection = serverSocket.accept();
-                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String line = bufferedReader.readLine();
+//                connection = serverSocket.accept();
+//                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
+//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                Dispatcher dispatcher = new Dispatcher();
+                dispatcher.dispatch(serverSocket);
 
-                System.out.println("READ: " + line);
+//                System.out.println("READ: " + line);
             }
         } catch (IOException e) {
             e.printStackTrace();
